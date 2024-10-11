@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="mb-4">
+        {% if query %}
+            Search Results for "{{ query }}"
+        {% else %}
+            Latest News
+        {% endif %}
+    </h1>
+    
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+    
+    {% if articles %}
+        <div class="row">
+            {% for article in articles %}
+                <div class="col-md-4">
+                    <div class="card news-card h-100">
+                        {% if article.urlToImage %}
+                            <img src="{{ article.urlToImage }}" class="card-img-top" alt="News Image">
+                        {% else %}
+                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Default Image">
+                        {% endif %}
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ article.title or "No Title Available" }}</h5>
+                            <p class="card-text">{{ article.description or "No Description Available." }}</p>
+                            <a href="{{ article.url }}" target="_blank" class="btn btn-primary mt-auto">Read More</a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            {{ article.source.name or "Unknown Source" }} | {{ article.publishedAt | datetimeformat }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% elif not error %}
+        <p>No articles found for your query.</p>
+    {% endif %}
+{% endblock %}
