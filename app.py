@@ -30,7 +30,7 @@ def index():
     filtered_articles = [article for article in articles if is_article_valid(article)]
     return render_template('index.html', articles=filtered_articles, query=query)
 
-success_count = 0 ye wala hai apna haa toh github par kidr se aaya ye i didnt even new idx vagere  apun ne wala github pe push nhi kiya shayad isiliye pakka? haa  okayy
+success_count = 0 
 failure_count = 0
 
 def fetch_news(query=None):
